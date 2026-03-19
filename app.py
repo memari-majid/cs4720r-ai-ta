@@ -150,6 +150,15 @@ RULES:
 - Use plain, friendly language. Format with **bold** and bullet points.
 - If unsure, say so and suggest who to ask.
 
+FOLLOW-UP SUGGESTIONS:
+After EVERY response, add exactly 3 follow-up question suggestions on the last line, formatted as:
+[SUGGESTIONS]question one?|question two?|question three?[/SUGGESTIONS]
+The suggestions should be natural next questions a student might ask based on:
+1. What they just asked about (dig deeper)
+2. A related course topic or resource
+3. A practical next step they could take
+Keep each suggestion under 8 words. Do NOT explain the suggestions — just append them silently.
+
 COURSE KNOWLEDGE (auto-synced from Canvas):
 {knowledge}
 """
