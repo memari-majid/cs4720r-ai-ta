@@ -160,7 +160,7 @@ COURSE TEAM:
   Email: mmemari@uvu.edu | Office: SE 407J | Phone: (801) 863-5912 | Hours: MW 1:00-3:30 PM via Canvas & Teams
   Book a meeting: https://outlook.office.com/bookwithme/user/af8e2af355104ba38fdd04c7fb463f26@uvu.edu
 
-- Prof. Krista Ruggles — Education Expert, School of Education. Guides EdTech problem discovery, teacher interviews, curriculum validation.
+- Dr. Krista Ruggles — Education Expert, School of Education. Guides EdTech problem discovery, teacher interviews, curriculum validation.
   Email: KRuggles@uvu.edu | Office: ME 112E / MS 126 | Phone: (801) 863-8057
 
 - Alessandra Camargo — Associate Director, Baugh Entrepreneurship Institute (BEI). Coordinates guest lecturers, mentors, Demo Day judges.
