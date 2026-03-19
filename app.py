@@ -236,6 +236,7 @@ async def chat_api(request: Request):
     body = await request.json()
     user_messages = body.get("messages", [])
     stream = body.get("stream", False)
+    mode = body.get("mode", "fast")  # "fast" or "thinking"
 
     if not user_messages:
         return JSONResponse({"error": "Please type a question."}, status_code=400)
@@ -243,13 +244,22 @@ async def chat_api(request: Request):
     recent = user_messages[-10:]
     api_messages = [{"role": "system", "content": system_prompt}] + recent
 
+    if mode == "thinking":
+        model = "gpt-4.1"
+        max_tokens = 1200
+        temperature = 0.4
+    else:
+        model = "gpt-4o-mini"
+        max_tokens = 600
+        temperature = 0.3
+
     if stream:
         def generate():
             response = client.chat.completions.create(
-                model="gpt-4o-mini",
+                model=model,
                 messages=api_messages,
-                max_tokens=600,
-                temperature=0.3,
+                max_tokens=max_tokens,
+                temperature=temperature,
                 stream=True,
             )
             for chunk in response:
@@ -262,10 +272,10 @@ async def chat_api(request: Request):
     else:
         try:
             response = client.chat.completions.create(
-                model="gpt-4o-mini",
+                model=model,
                 messages=api_messages,
-                max_tokens=600,
-                temperature=0.3,
+                max_tokens=max_tokens,
+                temperature=temperature,
             )
             return {"reply": response.choices[0].message.content}
         except Exception as e:

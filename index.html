@@ -39,12 +39,20 @@
   .typing span:nth-child(3) { animation-delay: 0.4s; }
   @keyframes bounce { 0%,80%,100% { transform: scale(0); } 40% { transform: scale(1); } }
 
-  .inp { background: #fff; padding: 14px 16px; border-top: 1px solid var(--border); display: flex; gap: 10px; }
+  .inp-wrap { background: #fff; border-top: 1px solid var(--border); }
+  .mode-bar { display: flex; align-items: center; gap: 6px; padding: 8px 16px 0; }
+  .mode-bar .label { font-size: 11px; color: #999; margin-right: 4px; }
+  .mode-btn { font-size: 12px; padding: 4px 12px; border-radius: 14px; border: 1px solid var(--border); background: #fff; color: #666; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 4px; }
+  .mode-btn.active { background: var(--uvu); color: #fff; border-color: var(--uvu); }
+  .mode-btn:hover:not(.active) { border-color: var(--uvu); color: var(--uvu); }
+  .mode-btn i { font-size: 11px; }
+  .inp { padding: 10px 16px 14px; display: flex; gap: 10px; }
   .inp input { flex: 1; padding: 13px 18px; border: 2px solid var(--border); border-radius: 24px; font-size: 15px; outline: none; transition: border-color 0.2s, box-shadow 0.2s; }
   .inp input:focus { border-color: var(--uvu); box-shadow: 0 0 0 3px rgba(39,93,56,0.1); }
   .inp button { background: var(--uvu); color: #fff; border: none; border-radius: 50%; width: 46px; height: 46px; cursor: pointer; font-size: 18px; transition: all 0.2s; display: flex; align-items: center; justify-content: center; }
   .inp button:hover { background: var(--uvu-dark); transform: scale(1.05); }
   .inp button:disabled { background: #ccc; cursor: not-allowed; transform: none; }
+  .thinking-label { font-size: 12px; color: var(--uvu); font-style: italic; align-self: flex-start; padding: 4px 14px; animation: fi 0.3s; }
 
   .welcome { text-align: center; padding: 50px 24px 30px; }
   .welcome .logo { width: 64px; height: 64px; background: var(--uvu-light); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; font-size: 28px; color: var(--uvu); }
@@ -98,9 +106,16 @@
   </div>
 </div>
 
-<div class="inp">
-  <input type="text" id="input" placeholder="Ask me anything about CS 4720R..." autocomplete="off" onkeydown="if(event.key==='Enter'&&!event.shiftKey)send()">
-  <button id="btn" onclick="send()"><i class="fas fa-paper-plane"></i></button>
+<div class="inp-wrap">
+  <div class="mode-bar">
+    <span class="label">Mode:</span>
+    <button class="mode-btn active" id="mode-fast" onclick="setMode('fast')"><i class="fas fa-bolt"></i> Fast</button>
+    <button class="mode-btn" id="mode-thinking" onclick="setMode('thinking')"><i class="fas fa-brain"></i> Thinking</button>
+  </div>
+  <div class="inp">
+    <input type="text" id="input" placeholder="Ask me anything about CS 4720R..." autocomplete="off" onkeydown="if(event.key==='Enter'&&!event.shiftKey)send()">
+    <button id="btn" onclick="send()"><i class="fas fa-paper-plane"></i></button>
+  </div>
 </div>
 
 <div class="ft">
@@ -109,9 +124,19 @@
 
 <script>
 let msgs = [];
+let currentMode = 'fast';
 const chat = document.getElementById('chat');
 const input = document.getElementById('input');
 const btn = document.getElementById('btn');
+
+function setMode(mode) {
+  currentMode = mode;
+  document.getElementById('mode-fast').className = 'mode-btn' + (mode === 'fast' ? ' active' : '');
+  document.getElementById('mode-thinking').className = 'mode-btn' + (mode === 'thinking' ? ' active' : '');
+  input.placeholder = mode === 'thinking'
+    ? 'Ask a deeper question (uses more powerful model)...'
+    : 'Ask me anything about CS 4720R...';
+}
 
 function askQ(el) { input.value = el.textContent; send(); }
 
@@ -151,6 +176,14 @@ async function send() {
   if (!q) return;
   input.value = ''; btn.disabled = true;
   addMsg('user', q);
+  if (currentMode === 'thinking') {
+    const lbl = document.createElement('div');
+    lbl.className = 'thinking-label';
+    lbl.id = 'think-lbl';
+    lbl.innerHTML = '<i class="fas fa-brain"></i> Thinking deeply...';
+    chat.appendChild(lbl);
+    chat.scrollTop = chat.scrollHeight;
+  }
   showTyping();
   msgs.push({ role: 'user', content: q });
 
@@ -158,10 +191,11 @@ async function send() {
     const res = await fetch('/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ messages: msgs, stream: true })
+      body: JSON.stringify({ messages: msgs, stream: true, mode: currentMode })
     });
 
     hideTyping();
+    const tl = document.getElementById('think-lbl'); if (tl) tl.remove();
     const msgEl = addMsg('assistant', '');
     let fullText = '';
 
