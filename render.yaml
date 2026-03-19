@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: cs4720r-ai-ta
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: ASSISTANT_ID
+        sync: false
+    plan: free
