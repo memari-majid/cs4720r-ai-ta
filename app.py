@@ -75,12 +75,44 @@ def sync_from_canvas() -> str:
             msg = strip_html(d.get("message", "") or "")[:200]
             content.append(f"- {d['title']}: {msg}")
 
-        for slug in ["faq", "start-here", "technical-requirements", "instructor-information"]:
-            r = http_requests.get(f"{base}/courses/{COURSE_ID}/pages/{slug}",
-                                  headers=headers, timeout=30)
-            if r.status_code == 200:
-                text = strip_html(r.json().get("body", "") or "")[:2000]
-                content.append(f"\n{slug.upper().replace('-', ' ')}:\n{text}")
+        # Pull ALL published pages (full content)
+        r = http_requests.get(f"{base}/courses/{COURSE_ID}/pages?per_page=100",
+                              headers=headers, timeout=30)
+        all_pages = r.json() if isinstance(r.json(), list) else []
+        all_links = set()
+        content.append("\nALL COURSE PAGES:")
+        for pg in all_pages:
+            if not pg.get("published"):
+                continue
+            r2 = http_requests.get(f"{base}/courses/{COURSE_ID}/pages/{pg['url']}",
+                                   headers=headers, timeout=30)
+            if r2.status_code != 200:
+                continue
+            body_html = r2.json().get("body", "") or ""
+            # Extract external links from page HTML
+            import re as _re
+            for href in _re.findall(r'href="(https?://[^"]+)"', body_html):
+                if "instructure.com" not in href and "uvu.edu" in href:
+                    all_links.add(href)
+                elif "uvu.edu/woodbury" in href:
+                    all_links.add(href)
+            text = strip_html(body_html)[:1500]
+            content.append(f"\nPAGE: {pg['title']}\n{text}")
+        print(f"  Pages: {len(all_pages)}, External links found: {len(all_links)}")
+
+        # Crawl external links for additional content
+        if all_links:
+            content.append("\nLINKED RESOURCES (crawled from course pages):")
+            for link in sorted(all_links):
+                try:
+                    r3 = http_requests.get(link, timeout=10,
+                                           headers={"User-Agent": "UVU-CS4720R-AI-TA/1.0"})
+                    if r3.status_code == 200:
+                        page_text = strip_html(r3.text)[:2000]
+                        content.append(f"\nLINK: {link}\n{page_text}")
+                except Exception:
+                    pass
+            print(f"  Crawled {len(all_links)} external links")
 
         r = http_requests.get(f"{base}/courses/{COURSE_ID}/discussion_topics?only_announcements=true&per_page=5",
                               headers=headers, timeout=30)
@@ -146,8 +178,10 @@ YOUR ROLE:
 
 RULES:
 - NEVER write assignments, pitches, Lean Canvases, or deliverables for students.
-- Keep answers concise — 2-4 sentences for simple questions.
-- Use plain, friendly language. Format with **bold** and bullet points.
+- Keep answers concise — 2-4 sentences for simple questions, longer for complex ones.
+- Use plain, friendly language. Format with **bold**, bullet points, and tables when helpful.
+- When answering, cite the specific course page or linked resource you're drawing from (e.g., "According to the FAQ page..." or "The BEI website says...").
+- Include relevant links when available so students can explore further.
 - If unsure, say so and suggest who to ask.
 
 FOLLOW-UP SUGGESTIONS:
@@ -246,11 +280,11 @@ async def chat_api(request: Request):
 
     if mode == "thinking":
         model = "gpt-4.1"
-        max_tokens = 1200
+        max_tokens = 1600
         temperature = 0.4
     else:
         model = "gpt-4o-mini"
-        max_tokens = 600
+        max_tokens = 800
         temperature = 0.3
 
     if stream:
