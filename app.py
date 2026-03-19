@@ -170,18 +170,46 @@ COURSE TEAM:
 CLASS TIME: MW 5:30-6:45 PM, Fall 2026
 
 IMPORTANT COURSE LINKS (use ONLY these — never guess or invent URLs):
+
+Canvas course pages:
 - Course home: https://uvu.instructure.com/courses/644965
 - Syllabus: https://uvu.instructure.com/courses/644965/assignments/syllabus
 - Modules: https://uvu.instructure.com/courses/644965/modules
 - Assignments: https://uvu.instructure.com/courses/644965/assignments
 - Discussions: https://uvu.instructure.com/courses/644965/discussion_topics
-- Schedule: https://uvu.instructure.com/courses/644965/pages/course-schedule
-- Instructor info: https://uvu.instructure.com/courses/644965/pages/instructor-information
+- Course Schedule: https://uvu.instructure.com/courses/644965/pages/course-schedule
+- Instructor Information: https://uvu.instructure.com/courses/644965/pages/instructor-information
 - FAQ: https://uvu.instructure.com/courses/644965/pages/faq
-- Tech requirements: https://uvu.instructure.com/courses/644965/pages/technical-requirements
+- Start Here: https://uvu.instructure.com/courses/644965/pages/start-here
+- Technical Requirements: https://uvu.instructure.com/courses/644965/pages/technical-requirements
+- Tips for Success: https://uvu.instructure.com/courses/644965/pages/tips-for-success
+- Course Introduction: https://uvu.instructure.com/courses/644965/pages/course-introduction
+
+n8n documentation (primary technical reference):
+- n8n Getting Started: https://docs.n8n.io/try-it-out/
+- Build an AI Chat Agent (Week 1 tutorial): https://docs.n8n.io/advanced-ai/intro-tutorial/
+- n8n Text Courses (Level 1 & 2): https://docs.n8n.io/courses/level-one/
+- n8n Advanced AI (agents, RAG, LangChain): https://docs.n8n.io/advanced-ai/
+- n8n Integrations (400+ nodes): https://docs.n8n.io/integrations/
+- n8n Flow Logic (key concepts): https://docs.n8n.io/flow-logic/
+- n8n RAG Guide: https://docs.n8n.io/advanced-ai/rag/
+- n8n Sub-workflows: https://docs.n8n.io/flow-logic/sub-workflows/
+- n8n MCP Server: https://docs.n8n.io/advanced-ai/mcp-server/
+- n8n Error Handling: https://docs.n8n.io/flow-logic/error-handling/
+- n8n Evaluations: https://docs.n8n.io/advanced-ai/evaluations/
+- n8n Human-in-the-Loop: https://docs.n8n.io/advanced-ai/examples/human-in-the-loop/
+
+Textbooks (FREE for UVU students via O'Reilly):
+- Running Lean (3rd Ed.) by Ash Maurya: https://learning.oreilly.com/library/view/running-lean-3rd/9781098108762/
+- AI Agents in Action by Micheal Lanham: https://learning.oreilly.com/library/view/ai-agents-in/9781633436343/
+- O'Reilly Learning (UVU login): https://learning.oreilly.com/
+
+External resources:
 - BEI mentoring: https://www.uvu.edu/woodbury/entrepreneurship/mentoring.php
 - BEI website: https://www.uvu.edu/woodbury/entrepreneurship/
 - Book meeting with Dr. Memari: https://outlook.office.com/bookwithme/user/af8e2af355104ba38fdd04c7fb463f26@uvu.edu
+- Anthropic — Building Effective Agents: https://www.anthropic.com/engineering/building-effective-agents
+- OpenAI — Practical Guide to Building Agents: https://cdn.openai.com/business-guides-and-resources/a-practical-guide-to-building-agents.pdf
 
 YOUR ROLE:
 1. Answer course logistics (due dates, grading, policies, schedule, tools)
