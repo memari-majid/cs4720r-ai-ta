@@ -289,6 +289,7 @@ async def chat_api(request: Request):
 
     if stream:
         def generate():
+            import json as _json
             response = client.chat.completions.create(
                 model=model,
                 messages=api_messages,
@@ -299,7 +300,7 @@ async def chat_api(request: Request):
             for chunk in response:
                 delta = chunk.choices[0].delta
                 if delta.content:
-                    yield f"data: {delta.content}\n\n"
+                    yield f"data: {_json.dumps(delta.content)}\n\n"
             yield "data: [DONE]\n\n"
 
         return StreamingResponse(generate(), media_type="text/event-stream")
