@@ -1,0 +1,171 @@
+SYLLABUS:
+Syllabus CS 4720R | Fall 2026 CS 4720R: AI Business and Tech Solutions | Fall 2026 An innovation and entrepreneurship course focused on Education Technology (EdTech). Students discover real problems in K-12 and higher education, propose AI-powered solutions, build working prototypes using no-code tools, and pitch their EdTech startup to mentors and judges. No programming experience required — all prototyping is done in the browser with cloud-hosted n8n. Co-taught by a computer scientist and an education expert, with mentoring and guest lectures from UVU's Baugh Entrepreneurship Institute . &nbsp; Course Information Credits 3 Modality In-Person Prerequisites None. Classroom TBA Meeting Time MW 5:30 PM - 6:45 PM &nbsp; Instructors Field Details Instructor Majid (MJ) Memari Email mmemari@uvu.edu Phone (801) 863-5912 Office SE 407J Office Hours MW 1:00–3:30 PM via Canvas &amp; Teams Booking Book a Meeting → Field Details Subject Matter Expert Krista Ruggles Title Associate Professor — Elementary Education STEM Department School of Education Email KRuggles@uvu.edu Phone (801) 863-8057 Office ME 112E / MS 126 Role Subject Matter Expert (EdTech) Field Details BEI Contact Alessandra Camargo Title Associate Director — Baugh Entrepreneurship Institute Role BEI Liaison — Guest Lecturers &amp; Mentors &nbsp; Learning Outcomes Discover real problems in K-12 and higher education through research and educator interviews Propose innovative AI-powered solutions and evaluate their feasibility Build working EdTech prototypes using no-code tools (n8n) — no programming required Apply the Lean Startup methodology: problem discovery, customer validation, MVP, and pivot Calculate unit economics and deliver a professional startup pitch with live demo Leverage UVU Baugh Entrepreneurship Institute resources — mentoring, pitch competitions, and seed funding &nbsp; Required Materials &amp; Tools Canvas n8n (cloud-hosted — runs in your browser, nothing to install) Google Gemini API (free tier) Google Account (Gmail, Sheets, Docs) Retell AI (free tier, Week 6) &nbsp; Grading Category Weight Lean Canvas + Customer Interviews 10% Weekly Agent Builds (5) 25% MVP Integration + Testing Report 20% Business Report (Unit Economics) 15% Demo Day Pitch + Live Demo 20% Participation + Reading Responses 10% Exact due dates live in Canvas Assignments; details live inside Modules. &nbsp; Policies &nbsp; Late Work Assignments are accepted up to 3 days late with a 10% penalty per day . After 3 days, no credit is given without prior arrangement. Contact the instructor before the deadline if you need an extension. &nbsp; AI Use Policy AI tools are encouraged (ChatGPT, Copilot, Claude) as learning aids. However: You must understand and explain all code you submit You must disclose AI usage in your submissions Copying solutions without understanding is academic dishonesty &nbsp; Academic Integrity All work submitted must be your own. Violations include: Copying code from other students Sharing so
+
+ASSIGNMENTS:
+- Week 00 Discussion — "Introduce Yourself" | 5.0 pts | due: 2026-08-29
+- Week 01 Discussion — "EdTech Products That Run on AI" | 5.0 pts | due: 2026-09-05
+- Agent Build 1: Workflow Automation | 50.0 pts | due: 2026-09-12
+- Week 02 Discussion — "The Most Tedious Task in Education" | 5.0 pts | due: 2026-09-12
+- Agent Build 2: Text AI Agent | 50.0 pts | due: 2026-09-19
+- Week 03 Discussion — "Your First AI Teaching Assistant" | 5.0 pts | due: 2026-09-19
+- Agent Build 3: Content Pipeline | 50.0 pts | due: 2026-09-26
+- Week 04 Discussion — "AI-Generated Lesson Plans & Content" | 5.0 pts | due: 2026-09-26
+- Agent Build 4: Knowledge & Data Agent (RAG) | 50.0 pts | due: 2026-10-03
+- Week 05 Discussion — "RAG: When AI Needs to Know Your Curriculum" | 5.0 pts | due: 2026-10-03
+- Agent Build 5: Voice Agent | 50.0 pts | due: 2026-10-10
+- Week 06 Discussion — "Voice AI in Education" | 5.0 pts | due: 2026-10-10
+- Assignment 1: Five Agent Portfolio | 150.0 pts | due: 2026-10-17
+- Week 07 Discussion — "Your EdTech AI Team" | 5.0 pts | due: 2026-10-17
+- Week 08 Discussion — "When Education AI Goes Wrong" | 5.0 pts | due: 2026-10-24
+- Production-Ready Agent System | 100.0 pts | due: 2026-10-31
+- Week 09 Discussion — "Production-Ready: What Changed?" | 5.0 pts | due: 2026-10-31
+- Week 10 Discussion — "Your EdTech Lean Canvas: The Problem" | 5.0 pts | due: 2026-11-07
+- Startup Package: Lean Canvas + Interviews + MVP | 200.0 pts | due: 2026-11-14
+- Week 11 Discussion — "What Educators Actually Want" | 5.0 pts | due: 2026-11-14
+- Week 12 Discussion — "Unit Economics: Is Your EdTech Viable?" | 5.0 pts | due: 2026-11-19
+- Week 13 Discussion — "Practice Pitch & Peer Feedback" | 5.0 pts | due: 2026-11-23
+- Week 14 Discussion — "What Are You Fixing?" | 5.0 pts | due: 2026-12-05
+- Business Report: Unit Economics and Architecture | 100.0 pts | due: 2026-12-12
+- Demo Day: Pitch + Live Demo | 200.0 pts | due: 2026-12-12
+- Week 15 Discussion — "Course Takeaways" | 5.0 pts | due: 2026-12-12
+
+MODULES:
+- Week 0: Innovation in Education (Memari + Ruggles)
+- Week 1: Your Prototyping Tool — Introduction to n8n (Memari)
+- Week 2: Automating Educator Tasks — Prototype: Workflows (Memari + Ruggles)
+- Week 3: AI Tutoring & Student Support — Prototype: Chatbots (Memari + Ruggles)
+- Week 4: AI Content for Educators — Prototype: Lesson Tools (Memari + Ruggles)
+- Week 5: Smart Knowledge Systems for Schools — Prototype: RAG (Memari)
+- Week 6: Voice AI for Accessibility & Outreach — Prototype: Voice (Memari + Ruggles)
+- Week 7: Assembling Your EdTech Prototype (Memari)
+- Week 8: Safety, Trust & Ethics in Education AI (Memari + Ruggles)
+- Week 9: Problem Discovery & Lean Canvas (Memari + Ruggles)
+- Week 10: EdTech Business Models (BEI Guest Lecturer)
+- Week 11: Customer Interviews & MVP Sprint (Ruggles + Memari)
+- Week 12: Unit Economics & Pitch Preparation (BEI Mentors)
+- Week 13: Pitch Practice & Polish (BEI Mentor Feedback)
+- 🦃 Thanksgiving Break (Nov 23–29)
+- Week 14: Dress Rehearsal (Memari + Ruggles + BEI Mentors)
+- Week 15: Demo Day (Memari + Ruggles + BEI Judges)
+- Week 16: Your Startup — What Comes Next? (Memari + Ruggles)
+
+DISCUSSIONS:
+- Week 00 Discussion — "Introduce Yourself": Welcome to CS 4720R! Introduce yourself to the class. Share: your name, your major, what excites you about AI in education, and one problem in educati
+- Week 01 Discussion — "EdTech Products That Run on AI": Find one real EdTech product or startup that uses AI to improve teaching or learning. Share the link and explain: what does it do, who is the target u
+- Week 02 Discussion — "The Most Tedious Task in Education": Talk to a teacher, professor, or school administrator (or reflect on your own experience). What is the most tedious, repetitive task they deal with? D
+- Week 03 Discussion — "Your First AI Teaching Assistant": Your text AI agent costs $10-30/mo. A human tutor or teaching assistant costs $15-25/hr. Write a 3-sentence pitch to a school principal or department 
+- Week 04 Discussion — "AI-Generated Lesson Plans & Content": A teacher spends 5-10 hours/week creating lesson plans, worksheets, and assessments. Your content agent can generate a first draft in minutes. But is 
+- Week 05 Discussion — "RAG: When AI Needs to Know Your Curriculum": You built a RAG agent this week. Imagine feeding it a school's entire curriculum guide, textbook, or student handbook. Compare: ask your agent a quest
+- Week 06 Discussion — "Voice AI in Education": Imagine a voice AI agent that helps students practice a foreign language, reads aloud to struggling readers, or provides accessibility support for stu
+- Week 07 Discussion — "Your EdTech AI Team": Share your EdTech company org chart where each role is one of your five agents (A through E). How would they work together to serve a school or distri
+- Week 08 Discussion — "When Education AI Goes Wrong": Share the worst failure you've seen from one of your agents. What did it do wrong? How did you fix it? Now think about the stakes in education: what's
+- Week 09 Discussion — "Production-Ready: What Changed?": Compare your agent system now vs. Week 7. What did you refactor? What breaks less? Share one specific improvement that made your system more reliable.
+- Week 10 Discussion — "Your EdTech Lean Canvas: The Problem": Share your Lean Canvas Problem box: what are the top 3 problems your target education customer faces? Who is that customer specifically — a 3rd-grade 
+- Week 11 Discussion — "What Educators Actually Want": What was the most surprising thing you heard in your customer interviews with teachers, students, or administrators? Did it change your EdTech idea? S
+- Week 12 Discussion — "Unit Economics: Is Your EdTech Viable?": Calculate: what does your AI team cost per month? What would human staff cost for the same roles in a school? Share the comparison. At what price poin
+- Week 13 Discussion — "Practice Pitch & Peer Feedback": Post your 3-5 minute practice pitch video for your EdTech product. Then watch at least 2 classmates' pitches and reply with constructive feedback. Wou
+- Week 14 Discussion — "What Are You Fixing?": After your dress rehearsal and mentor session with Prof. Ruggles and Prof. Memari, what is the ONE thing you most need to improve before Demo Day? Rep
+- Week 15 Discussion — "Course Takeaways": What was the most valuable thing you learned this semester about building AI-powered EdTech products? How will you use these skills in your career? Sh
+
+SCHEDULE:
+# CS 4720R: AI Business and Tech Solutions — Fall 2026
+
+> 16-week in-person offering. AI & n8n capabilities first (Weeks 0-9), then
+> business & entrepreneurship with EdTech focus (Weeks 10-16), with Baugh
+> Entrepreneurship Institute guest lecturers and mentors closing the semester.
+
+## Instructors
+
+| Role | Name | Department |
+|------|------|------------|
+| **Instructor** | Majid Memari | Computer Science |
+| **Subject Matter Expert (EdTech)** | Krista Ruggles | School of Education |
+| **BEI Contact** | Alessandra Camargo, Associate Director | [Baugh Entrepreneurship Institute](https://www.uvu.edu/woodbury/entrepreneurship/) |
+
+## Course Design
+
+- **Focus**: Innovation and entrepreneurship in Education Technology (EdTech)
+- **Arc**: Discover problems → Propose solutions → Build prototypes → Launch a startup
+- **Prototyping Tool**: n8n (no-code, cloud-hosted — runs in the browser, nothing to install)
+- **Prerequisites**: None — no programming experience required
+- **Audience**: CS and School of Education students
+- **Format**: In-Person, project-based, Demo Day finale with Baugh mentors
+- **Entrepreneurship Partner**: [Baugh Entrepreneurship Institute](https://www.uvu.edu/woodbury/entrepreneurship/)
+
+---
+
+## Academic Calendar (Fall 2026)
+
+| Event | Date |
+|---|---|
+| Classes Begin | Mon, Aug 24 |
+| Labor Day (No Classes) | Mon, Sep 7 |
+| Fall Break | Thu, Oct 15 – Sun, Oct 18 |
+| Thanksgiving Break | Mon, Nov 23 – Sun, Nov 29 |
+| Finals Begin | Mon, Dec 7 |
+| Term Ends | Sat, Dec 12 |
+
+---
+
+## Course Structure (3-Phase Arc)
+
+```
+PHASE 1: DISCOVER                  PHASE 2: PROTOTYPE              PHASE 3: LAUNCH
+(Weeks 0-3)                        (Weeks 4-8)                     (Weeks 9-16)
+
+What's broken in education?        Build AI-powered EdTech          Turn your prototype into
+Interview educators, observe       prototypes using n8n.            a startup. Lean Canvas,
+classrooms, identify problems      No coding — visual, drag-        customer validation, unit
+worth solving.                     and-drop prototyping.            economics, pitch, Demo Day.
+```
+
+---
+
+## Weekly Rhythm
+
+Each week students complete:
+
+1. **Explore** — Read/watch assigned materials about the week's EdTech problem
+2. **Discuss** — Post a reflection connecting the topic to real education challenges
+3. **Build** — Create a working prototype in n8n during class (lab)
+4. **Reflect** — How does this prototype solve a real problem for educators or students?
+
+---
+
+## PHASE 1: DISCOVER — What's Broken in Education? (Weeks 0-3)
+
+Students explore the EdTech landscape, learn what problems educators face,
+and begin thinking like entrepreneurs. n8n is introduced as the prototyping tool.
+
+| Week | Dates | Topic | Deliverable |
+|---|---|---|---|
+| 0 | Aug 24-28 | Innovation in Education — What Problems Are Worth Solving? | n8n cloud setup, API keys |
+| 1 | Aug 31-Sep 4 | Your Prototyping Tool — Introduction to n8n | First prototype running |
+| 2 | Sep 7-11 | Automating Educator Tasks (Prototype: Workflows) | Prototype 1: workflow automation |
+| 3 | Sep 14-18 | AI Tutoring & Student Support (Prototype: Chatbots) | Prototype 2: tutoring chatbot |
+
+---
+
+## PHASE 2: PROTOTYPE — Build AI-Powered Solutions (Weeks 4-8)
+
+Students build progressively more sophisticated EdTech prototypes.
+Each week focuses on a real education problem and the AI tool to solve it.
+
+| Week | Dates | Topic | Deliverable |
+|---|---|---|---|
+| 4 | Sep 21-25 | AI Content for Educators (Prototype: Lesson & Assessment Tools) | Prototype 3: content generator |
+| 5 | Sep 28-Oct 2 | Smart Knowledge Systems for Schools (Prototype: RAG) | Prototype 4: knowledge agent |
+| 6 | Oct 5-9 | Voice AI for Accessibility & Outreach (Prototype: Voice Agents) | Prototype 5: voice agent |
+| 7 | Oct 12-16 | Assembling Your EdTech Prototype | **Portfolio**: All 5 prototypes integrated |
+| 8 | Oct 19-23 | Safety, Trust & Ethics in Education AI | Production-ready prototype |
+
+> **Fall Break**: Oct 15-18 — no class on Oc
+
+FAQ:
+Frequently Asked Questions CS 4720R AI Teaching Assistant — Ask me anything about this course, 24/7 Open Chat &nbsp; 📚 Course Content Q: What will I learn in this course? A: An innovation and entrepreneurship course focused on Education Technology (EdTech). Students discover real problems in K-12 and higher education, propose AI-powered solutions, build working prototypes using no-code tools, and pitch their EdTech startup to mentors and judges. No programming experience required — all prototyping is done in the browser with cloud-hosted n8n. Co-taught by a computer scientist and an education expert, with mentoring and guest lectures from UVU's Baugh Entrepreneurship Institute . Q: Is there a textbook? A: Yes. Details are in the Syllabus . Q: How are grades calculated? A: See the Syllabus for complete grading breakdown. &nbsp; 💻 Technical Setup Q: What software do I need? A: See Technical Requirements for complete list and installation guides. Q: Where do I get help with technical issues? A: Post in Discussions or attend office hours. Include error messages and screenshots. &nbsp; 📝 Assignments Q: Can I submit assignments late? A: Yes, up to 3 days late with 10% penalty per day. See Syllabus for details. Q: Can I use AI tools (ChatGPT, Copilot)? A: Yes, but you must understand all code and disclose AI use in submissions. Q: Can I work with classmates? A: Discuss concepts yes, but all submitted work must be your own. &nbsp; 💡 Getting Help Q: What are your office hours? A: MW 1
+
+START HERE:
+Start Here Your Guide to Success AI Teaching Assistant — Ask me anything about this course, 24/7 Open Chat Welcome to the course! This page will guide you through everything you need to get started. &nbsp; Week 0 Checklist ✅ Read the Syllabus ✅ Review Course Schedule ✅ Meet your Instructor ✅ Check Technical Requirements ✅ Read the FAQ ✅ Go to Modules and start Week 1 &nbsp; How to Navigate This Course Start with Modules: All course content is organized by week in the Modules section Follow the sequence: Complete items in order (they build on each other) Check due dates: View Assignments page for all deadlines Ask questions: Use Discussions or attend office hours &nbsp; Need Help? If you get stuck or have questions: Technical issues: Check Technical Requirements Course questions: Post in Discussions Private matters: Email instructor (mmemari@uvu.edu) Office hours: MW 1:00–3:30 PM via Canvas &amp; Teams ( Book online ) Need help? Ask the AI Teaching Assistant — available 24/7. Ask AI TA CS 4720R: AI Business and Tech Solutions | Fall 2026 | Utah Valley University
+
+TECHNICAL REQUIREMENTS:
+Technical Requirements CS 4720R AI Teaching Assistant — Ask me anything about this course, 24/7 Open Chat Goal: get set up early so you can focus on learning, not troubleshooting. &nbsp; Basics (All Students) Reliable internet and a modern browser (Chrome/Firefox recommended) Canvas access (notifications enabled) A way to view PDFs (built-in browser PDF or a dedicated reader) &nbsp; Course Tools Canvas n8n (cloud-hosted — runs in your browser, nothing to install) Google Gemini API (free tier) Google Account (Gmail, Sheets, Docs) Retell AI (free tier, Week 6) See Syllabus → &nbsp; Getting Help If something breaks: include screenshots + the exact error message Course questions: ask in Discussions when appropriate Private issues: email the instructor Need help? Ask the AI Teaching Assistant — available 24/7. Ask AI TA CS 4720R: AI Business and Tech Solutions | Fall 2026 | Utah Valley University
