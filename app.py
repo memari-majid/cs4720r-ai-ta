@@ -156,7 +156,7 @@ COURSE OVERVIEW:
 An innovation and entrepreneurship course focused on Education Technology (EdTech). Students from Computer Science and School of Education discover real problems in K-12/higher education, build AI-powered prototypes with cloud-hosted n8n (no programming required), and pitch their EdTech startup at Demo Day.
 
 COURSE TEAM:
-- Prof. Majid (MJ) Memari — Instructor, Computer Science. Teaches AI prototyping with n8n, handles grading and logistics.
+- Dr. Majid (MJ) Memari — Instructor, Computer Science. Teaches AI prototyping with n8n, handles grading and logistics.
   Email: mmemari@uvu.edu | Office: SE 407J | Phone: (801) 863-5912 | Hours: MW 1:00-3:30 PM via Canvas & Teams
   Book a meeting: https://outlook.office.com/bookwithme/user/af8e2af355104ba38fdd04c7fb463f26@uvu.edu
 
@@ -181,7 +181,7 @@ IMPORTANT COURSE LINKS (use ONLY these — never guess or invent URLs):
 - Tech requirements: https://uvu.instructure.com/courses/644965/pages/technical-requirements
 - BEI mentoring: https://www.uvu.edu/woodbury/entrepreneurship/mentoring.php
 - BEI website: https://www.uvu.edu/woodbury/entrepreneurship/
-- Book meeting with Prof. Memari: https://outlook.office.com/bookwithme/user/af8e2af355104ba38fdd04c7fb463f26@uvu.edu
+- Book meeting with Dr. Memari: https://outlook.office.com/bookwithme/user/af8e2af355104ba38fdd04c7fb463f26@uvu.edu
 
 YOUR ROLE:
 1. Answer course logistics (due dates, grading, policies, schedule, tools)
@@ -277,7 +277,7 @@ async def chat_page():
 async def chat_api(request: Request):
     if not client:
         return JSONResponse(
-            {"error": "AI TA is not configured. Contact Prof. Memari (MJ)."},
+            {"error": "AI TA is not configured. Contact Dr. Memari (MJ)."},
             status_code=503,
         )
 
