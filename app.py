@@ -1,9 +1,15 @@
-"""CS 4720R AI Teaching Assistant — Streaming Chat Completions API."""
+"""CS 4720R AI Teaching Assistant — Streaming + Auto-Sync from Canvas."""
 
+import asyncio
 import os
+import re
+import threading
+import time
 from contextlib import asynccontextmanager
+from datetime import datetime, timezone
 from pathlib import Path
 
+import requests as http_requests
 from dotenv import load_dotenv
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse, JSONResponse, StreamingResponse
@@ -13,12 +19,105 @@ load_dotenv()
 
 client: OpenAI | None = None
 
-KNOWLEDGE = ""
-_kb_path = Path(__file__).parent / "knowledge_condensed.txt"
-if _kb_path.exists():
-    KNOWLEDGE = _kb_path.read_text(encoding="utf-8")
+CANVAS_URL = "https://uvu.instructure.com"
+COURSE_ID = "644965"
+SYNC_INTERVAL_HOURS = int(os.getenv("SYNC_INTERVAL_HOURS", "12"))
 
-SYSTEM_PROMPT = f"""\
+knowledge_text = ""
+last_sync = "never"
+system_prompt = ""
+
+
+def strip_html(html: str) -> str:
+    text = re.sub(r"<[^>]+>", " ", html).strip()
+    return re.sub(r"\s+", " ", text)
+
+
+def sync_from_canvas() -> str:
+    """Pull fresh content from Canvas and return condensed knowledge text."""
+    token = os.getenv("CANVAS_API_TOKEN")
+    if not token:
+        return ""
+
+    base = f"{CANVAS_URL}/api/v1"
+    headers = {"Authorization": f"Bearer {token}"}
+    content = []
+
+    try:
+        r = http_requests.get(f"{base}/courses/{COURSE_ID}", headers=headers,
+                              params={"include[]": "syllabus_body"}, timeout=30)
+        syl = strip_html(r.json().get("syllabus_body", ""))
+        content.append(f"SYLLABUS:\n{syl[:5000]}")
+
+        r = http_requests.get(f"{base}/courses/{COURSE_ID}/assignments?per_page=100",
+                              headers=headers, timeout=30)
+        content.append("\nASSIGNMENTS:")
+        for a in sorted(r.json(), key=lambda x: x.get("due_at") or ""):
+            desc = strip_html(a.get("description", "") or "")[:400]
+            content.append(f"\n{a['name']} | {a.get('points_possible',0)} pts | due: {(a.get('due_at') or 'TBD')[:10]}\n{desc}")
+
+        r = http_requests.get(f"{base}/courses/{COURSE_ID}/modules?per_page=50",
+                              headers=headers, timeout=30)
+        modules = r.json()
+        content.append("\nMODULES:")
+        for m in modules:
+            r2 = http_requests.get(f"{base}/courses/{COURSE_ID}/modules/{m['id']}/items?per_page=20",
+                                   headers=headers, timeout=30)
+            items = r2.json() if isinstance(r2.json(), list) else []
+            item_list = ", ".join(it.get("title", "")[:50] for it in items[:5])
+            content.append(f"- {m['name']}: {item_list}")
+
+        r = http_requests.get(f"{base}/courses/{COURSE_ID}/discussion_topics?per_page=50",
+                              headers=headers, timeout=30)
+        discussions = r.json() if isinstance(r.json(), list) else []
+        content.append("\nDISCUSSIONS:")
+        for d in sorted(discussions, key=lambda x: x.get("title", "")):
+            msg = strip_html(d.get("message", "") or "")[:200]
+            content.append(f"- {d['title']}: {msg}")
+
+        for slug in ["faq", "start-here", "technical-requirements", "instructor-information"]:
+            r = http_requests.get(f"{base}/courses/{COURSE_ID}/pages/{slug}",
+                                  headers=headers, timeout=30)
+            if r.status_code == 200:
+                text = strip_html(r.json().get("body", "") or "")[:2000]
+                content.append(f"\n{slug.upper().replace('-', ' ')}:\n{text}")
+
+        r = http_requests.get(f"{base}/courses/{COURSE_ID}/discussion_topics?only_announcements=true&per_page=5",
+                              headers=headers, timeout=30)
+        announcements = r.json() if isinstance(r.json(), list) else []
+        if announcements:
+            content.append("\nRECENT ANNOUNCEMENTS:")
+            for a in announcements:
+                msg = strip_html(a.get("message", "") or "")[:300]
+                posted = (a.get("posted_at") or "")[:10]
+                content.append(f"- [{posted}] {a['title']}: {msg}")
+
+        r = http_requests.get(f"{base}/courses/{COURSE_ID}/assignment_groups?per_page=50",
+                              headers=headers, timeout=30)
+        groups = r.json() if isinstance(r.json(), list) else []
+        content.append("\nGRADING WEIGHTS:")
+        for g in sorted(groups, key=lambda x: -x.get("group_weight", 0)):
+            content.append(f"- {g['name']}: {g.get('group_weight', 0)}%")
+
+    except Exception as e:
+        content.append(f"\n[Sync error: {e}]")
+
+    content.append("""
+KEY POLICIES:
+- Late work: Up to 3 days late with 10% penalty per day. After 3 days, no credit without prior arrangement.
+- AI use: Encouraged. Must understand all work and disclose AI use.
+- No programming required. Cloud-hosted n8n (browser-based).
+- Class time: MW 5:30 PM - 6:45 PM, Fall 2026.
+- BEI mentoring: Free at https://www.uvu.edu/woodbury/entrepreneurship/mentoring.php
+- ZinnStarter: Pitch competition with equity-free seed funding.
+- VentureCon: Student business trade show.
+""")
+
+    return "\n".join(content)
+
+
+def build_system_prompt(knowledge: str) -> str:
+    return f"""\
 You are the AI Teaching Assistant for CS 4720R: AI Business and Tech Solutions at Utah Valley University (Fall 2026).
 
 COURSE OVERVIEW:
@@ -40,42 +139,80 @@ CLASS TIME: MW 5:30-6:45 PM, Fall 2026
 
 YOUR ROLE:
 1. Answer course logistics (due dates, grading, policies, schedule, tools)
-2. Explain EdTech and entrepreneurship concepts simply (students may have no business or tech background)
+2. Explain EdTech and entrepreneurship concepts simply
 3. Help brainstorm EdTech problems and solutions (guide thinking, don't give answers)
 4. Route students to the right person for their question
 5. Recommend BEI resources (mentoring, ZinnStarter, VentureCon, workshops)
 
 RULES:
-- NEVER write assignments, pitches, Lean Canvases, or deliverables for students. Help them think, don't think for them.
-- Keep answers concise — 2-4 sentences for simple questions, longer only when needed.
-- Use plain, friendly language. Many students have no technical background.
-- When citing policies or dates, reference the syllabus.
+- NEVER write assignments, pitches, Lean Canvases, or deliverables for students.
+- Keep answers concise — 2-4 sentences for simple questions.
+- Use plain, friendly language. Format with **bold** and bullet points.
 - If unsure, say so and suggest who to ask.
-- Format responses with **bold** for emphasis and bullet points for lists.
 
-COURSE KNOWLEDGE:
-{KNOWLEDGE}
+COURSE KNOWLEDGE (auto-synced from Canvas):
+{knowledge}
 """
+
+
+def do_sync():
+    """Run a sync and update the in-memory prompt."""
+    global knowledge_text, system_prompt, last_sync
+    print(f"[{datetime.now(timezone.utc).isoformat()}] Syncing from Canvas...")
+    new_knowledge = sync_from_canvas()
+    if new_knowledge:
+        knowledge_text = new_knowledge
+        system_prompt = build_system_prompt(knowledge_text)
+        last_sync = datetime.now(timezone.utc).isoformat()
+        print(f"  Synced: {len(knowledge_text)} chars, {len(knowledge_text.split())} words")
+    else:
+        print("  No Canvas token — using static knowledge base")
+
+
+def sync_loop():
+    """Background thread that syncs every SYNC_INTERVAL_HOURS."""
+    while True:
+        time.sleep(SYNC_INTERVAL_HOURS * 3600)
+        try:
+            do_sync()
+        except Exception as e:
+            print(f"  Sync error: {e}")
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    global client
+    global client, knowledge_text, system_prompt
+
     api_key = os.getenv("OPENAI_API_KEY")
     if api_key:
         client = OpenAI(api_key=api_key)
+
+    # Initial sync from Canvas (or fall back to static file)
+    if os.getenv("CANVAS_API_TOKEN"):
+        do_sync()
+    else:
+        kb_path = Path(__file__).parent / "knowledge_condensed.txt"
+        if kb_path.exists():
+            knowledge_text = kb_path.read_text(encoding="utf-8")
+        system_prompt = build_system_prompt(knowledge_text)
+
+    # Start background sync thread
+    if os.getenv("CANVAS_API_TOKEN"):
+        t = threading.Thread(target=sync_loop, daemon=True)
+        t.start()
+        print(f"Background sync: every {SYNC_INTERVAL_HOURS} hours")
+
     yield
 
 
 app = FastAPI(title="CS 4720R AI TA", lifespan=lifespan)
 
-CHAT_HTML = Path(__file__).parent / "index.html"
-
 
 @app.get("/", response_class=HTMLResponse)
 async def chat_page():
-    if CHAT_HTML.exists():
-        return CHAT_HTML.read_text(encoding="utf-8")
+    html_path = Path(__file__).parent / "index.html"
+    if html_path.exists():
+        return html_path.read_text(encoding="utf-8")
     return "<h1>AI TA</h1><p>index.html not found</p>"
 
 
@@ -95,7 +232,7 @@ async def chat_api(request: Request):
         return JSONResponse({"error": "Please type a question."}, status_code=400)
 
     recent = user_messages[-10:]
-    api_messages = [{"role": "system", "content": SYSTEM_PROMPT}] + recent
+    api_messages = [{"role": "system", "content": system_prompt}] + recent
 
     if stream:
         def generate():
@@ -126,6 +263,21 @@ async def chat_api(request: Request):
             return JSONResponse({"error": str(e)}, status_code=500)
 
 
+@app.post("/api/sync")
+async def manual_sync():
+    """Trigger a manual sync (for instructors)."""
+    do_sync()
+    return {"status": "synced", "last_sync": last_sync, "knowledge_size": len(knowledge_text)}
+
+
 @app.get("/health")
 async def health():
-    return {"status": "ok", "openai_configured": client is not None, "model": "gpt-4o-mini", "streaming": True}
+    return {
+        "status": "ok",
+        "openai_configured": client is not None,
+        "canvas_sync": bool(os.getenv("CANVAS_API_TOKEN")),
+        "last_sync": last_sync,
+        "knowledge_words": len(knowledge_text.split()),
+        "sync_interval_hours": SYNC_INTERVAL_HOURS,
+        "model": "gpt-4o-mini",
+    }
