@@ -141,7 +141,7 @@
     <button class="mode-btn" id="mode-thinking" onclick="setMode('thinking')"><i class="fas fa-brain"></i> Thinking</button>
   </div>
   <div class="inp">
-    <input type="text" id="input" placeholder="Ask me anything about CS 4720R..." autocomplete="off" onkeydown="if(event.key==='Enter'&&!event.shiftKey)send()">
+    <input type="text" id="input" placeholder="Ask me anything about this course..." autocomplete="off" onkeydown="if(event.key==='Enter'&&!event.shiftKey)send()">
     <button id="btn" onclick="send()" title="Send message"><i class="fas fa-paper-plane"></i></button>
   </div>
   <div class="input-hint">Press Enter to send. Your chat is saved in this browser.</div>
@@ -169,7 +169,7 @@ function setMode(mode) {
   document.getElementById('mode-thinking').className = 'mode-btn' + (mode === 'thinking' ? ' active' : '');
   input.placeholder = mode === 'thinking'
     ? 'Ask a deeper question (uses more powerful model)...'
-    : 'Ask me anything about CS 4720R...';
+    : 'Ask me anything about this course...';
   saveState();
 }
 
